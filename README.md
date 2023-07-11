@@ -1,6 +1,6 @@
 # Phenotype Extraction
 
-This R notebook is written to extract phenotype information from drone imagery. 
+This R notebook is written to extract phenotype information from drone imagery.
 
 ## Getting started
 
@@ -23,8 +23,8 @@ Confirm the successful installation of FieldImageR by searching for "FIELDimageR
 ![Alt text](img/install_confirm.png?raw=true "Title")
 
 ### Run R notebook
-
-Before running the code, we need to download the orthomosaic by [clicking here](https://data.cyverse.org/dav-anon/iplant/projects/phytooracle/season_16_sorghum_yr_2023/level_1/drone/North-Cardon-Lane-7-6-2023-orthophoto.tif).
+<!-- 
+Before running the code, we need to download the orthomosaic by [clicking here](https://data.cyverse.org/dav-anon/iplant/projects/phytooracle/season_16_sorghum_yr_2023/level_1/drone/North-Cardon-Lane-7-6-2023-orthophoto.tif). -->
 
 Make sure that the orthomosaic is in your working directory:
 
