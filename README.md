@@ -4,6 +4,28 @@ This R notebook is written to extract phenotype information from drone imagery.
 
 ## Getting started
 
+### Download the GitHub repo
+
+Download the repo by clicking Code > Download ZIP:
+
+![Alt text](img/download_zip.png?raw=true "Title")
+
+Now, extract the contents of the ZIP file:
+
+![Alt text](img/extract_zip.png?raw=true "Title")
+
+Copy the path of the folder:
+
+![Alt text](img/contents_filepath.png?raw=true "Title")
+
+In RStudio, set the working directory to this copied path:
+
+![Alt text](img/set_wd.png?raw=true "Title")
+
+![Alt text](img/open_folder.png?raw=true "Title")
+
+![Alt text](img/home_dir.png?raw=true "Title")
+
 ### Install FieldImageR
 
 We must first install devtools, which allows us to install software from GitHub:
@@ -30,9 +52,9 @@ Confirm the successful installation of FieldImageR by searching for "FIELDimageR
 <!-- 
 Before running the code, we need to download the orthomosaic by [clicking here](https://data.cyverse.org/dav-anon/iplant/projects/phytooracle/season_16_sorghum_yr_2023/level_1/drone/North-Cardon-Lane-7-6-2023-orthophoto.tif). -->
 
-Make sure that the orthomosaic is in your working directory:
+<!-- Make sure that the orthomosaic is in your working directory:
 
-![Alt text](img/ortho_working.png?raw=true "Title")
+![Alt text](img/ortho_working.png?raw=true "Title") -->
 
 Let's try to run the R notebook named `testing_fieldimageR.Rmd` in the current repo. Click on Run > Run All:
 

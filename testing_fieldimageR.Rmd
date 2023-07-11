@@ -37,6 +37,6 @@ EX1.RemSoil <- fieldMask(mosaic = EX1.Crop, Red = 1, Green = 2, Blue = 3, index 
 ```
 
 ```{r}
-EX1.Shape<-fieldShape(mosaic = EX1.RemSoil,ncols = 32, nrows = 54)
+EX1.Shape<-fieldShape(mosaic = EX1.RemSoil,ncols = 32, nrows = 40)
 ```
 
