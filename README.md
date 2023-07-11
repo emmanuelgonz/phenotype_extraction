@@ -2,9 +2,7 @@
 
 This R notebook is written to extract phenotype information from drone imagery.
 
-## Getting started
-
-### Download the GitHub repo
+## Download the GitHub repo
 
 Download the repo by clicking Code > Download ZIP:
 
@@ -26,7 +24,7 @@ In RStudio, set the working directory to this copied path:
 
 ![Alt text](img/home_dir.png?raw=true "Title")
 
-### Install FieldImageR
+## Install FieldImageR
 
 We must first install devtools, which allows us to install software from GitHub:
 
@@ -48,7 +46,7 @@ Confirm the successful installation of FieldImageR by searching for "FIELDimageR
 
 ![Alt text](img/install_confirm.png?raw=true "Title")
 
-### Run R notebook
+## Run R notebook
 <!-- 
 Before running the code, we need to download the orthomosaic by [clicking here](https://data.cyverse.org/dav-anon/iplant/projects/phytooracle/season_16_sorghum_yr_2023/level_1/drone/North-Cardon-Lane-7-6-2023-orthophoto.tif). -->
 
@@ -64,7 +62,7 @@ By default, RStudio displays figures inline, which creates a problem when trying
 
 ![Alt text](img/error.png?raw=true "Title")
 
-### Direct figures to the console
+## Direct figures to the console
 
 To fix this, we need to direct figure outputs to the console:
 
