@@ -52,6 +52,8 @@ Now, the figures will be directed to the console, and we can now select points:
 
 There are some cases where the mouse cursor locations are offset. This is often due to the scale of your display. 
 
-To fix this in Windows, go to Settings > Display > Scale and change it to 100%. If this is set to anything other than 100%, your mouse cursor locations will be offset:
+To fix this in Windows, go to Settings > Display > Scale and change it to 100%. If this is set to anything other than 100%, your mouse cursor locations will be offset.
+
+On my display, the recommended setting is 150%, but this resulted in issues with my cursor locations, so I switched to 100%:
 
 ![Alt text](img/scale_setting.png?raw=true "Title")
