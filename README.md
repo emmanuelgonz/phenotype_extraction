@@ -12,11 +12,15 @@ We must first install devtools, which allows us to install software from GitHub:
 install.packages("devtools")
 ```
 
-We are now able to install FieldImageR:
+![Alt text](img/install_devtools.png?raw=true "Title")
+
+We can now install FieldImageR:
 
 ```
 devtools::install_github("OpenDroneMap/FIELDimageR")
 ```
+
+![Alt text](img/install_fieldimager.png?raw=true "Title")
 
 Confirm the successful installation of FieldImageR by searching for "FIELDimageR" in your Packages section. If you see the package, the installation was successful. Try the installation again if you do not see the package.
 
