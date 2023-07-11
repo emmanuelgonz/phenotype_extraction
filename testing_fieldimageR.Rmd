@@ -1,0 +1,42 @@
+---
+title: "R Notebook"
+# output: html_notebook
+editor_options: 
+  chunk_output_type: console
+output: 
+  html_notebook: 
+    fig_caption: yes
+fig_width: 6 
+fig_height: 4 
+---
+
+# Opening the image
+
+```{r}
+library(FIELDimageR)
+library(raster)
+```
+
+```{r}
+EX1 <- stack("North-Cardon-Lane-7-6-2023-orthophoto.tif")
+# EX1<-aggregate(EX1, fact=5)
+plotRGB(EX1, r = 1, g = 2, b =3)
+```
+
+```{r}
+EX1.Rotated <- fieldRotate(mosaic = EX1, clockwise = F, h=F) # h=horizontal
+```
+
+
+```{r, fig.align = "left"}
+EX1.Crop <- fieldCrop(mosaic = EX1.Rotated) #, fast.plot=T)
+```
+
+```{r}
+EX1.RemSoil <- fieldMask(mosaic = EX1.Crop, Red = 1, Green = 2, Blue = 3, index = "HUE")
+```
+
+```{r}
+EX1.Shape<-fieldShape(mosaic = EX1.RemSoil,ncols = 32, nrows = 54)
+```
+
