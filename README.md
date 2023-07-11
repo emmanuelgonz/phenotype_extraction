@@ -1,6 +1,19 @@
 # Phenotype Extraction
 
-This R notebook is written to extract phenotype information from drone imagery.
+This R notebook is written to extract phenotype information from drone imagery using [FieldImageR](https://github.com/OpenDroneMap/FIELDimageR). This repo contains the following:
+
+- Orthomosaic: `North-Cardon-Lane-7-6-2023-orthophoto.tif`
+- R notebook: `testing_fieldimageR.Rmd`
+
+We will use these files to test FieldImageR
+
+# Table of Contents
+
+- [Download the GitHub repo](#download-the-github-repo)
+- [Install FieldImageR](#install-fieldimager)
+- [Run R notebook](#run-r-notebook)
+- [Direct figures to the console](#direct-figures-to-the-console)
+- [Troubleshooting](#troubleshooting)
 
 ## Download the GitHub repo
 
