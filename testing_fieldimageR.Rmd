@@ -40,3 +40,25 @@ EX1.RemSoil <- fieldMask(mosaic = EX1.Crop, Red = 1, Green = 2, Blue = 3, index 
 EX1.Shape<-fieldShape(mosaic = EX1.RemSoil,ncols = 32, nrows = 40)
 ```
 
+```{r}
+EX1.Indices<- fieldIndex(mosaic = EX1.RemSoil$newMosaic, Red = 1, Green = 2, Blue = 3, 
+                          index = c("NGRDI","BGI"), 
+                          myIndex = c("(Red-Blue)/Green"))
+```
+
+```{r}
+EX1.Indices.myIndex<- fieldIndex(mosaic = EX1.RemSoil$newMosaic, Red = 1, Green = 2, Blue = 3, 
+                          index = c("NGRDI","BGI"), 
+                          myIndex = c("(Red-Blue)/Green","Red/Green","Blue/Green"))
+```
+
+```{r}
+EX1.SC<-fieldCount(mosaic = EX1.RemSoil$mask, fieldShape = EX1.Shape$fieldShape, n.core = 8, cex=0.4, col="blue")
+EX1.SC$fieldCount
+```
+
+```{r}
+EX1.Canopy<-fieldArea(mosaic = EX1.RemSoil$mask, fieldShape = EX1.Shape$fieldShape, n.core = 8)
+EX1.Canopy$areaPorcent
+```
+

@@ -22,7 +22,7 @@ In RStudio, set the working directory to this copied path:
 
 ![Alt text](img/set_wd.png?raw=true "Title")
 
-![Alt text](img/open_folder.png?raw=true "Title")
+<!-- ![Alt text](img/open_folder.png?raw=true "Title") -->
 
 ![Alt text](img/home_dir.png?raw=true "Title")
 
