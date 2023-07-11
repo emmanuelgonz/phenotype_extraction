@@ -20,7 +20,7 @@ We can now install FieldImageR:
 devtools::install_github("OpenDroneMap/FIELDimageR")
 ```
 
-![Alt text](img/install_fieldimager.png?raw=true "Title")
+![Alt text](img/install_fieldimageR.png?raw=true "Title")
 
 Confirm the successful installation of FieldImageR by searching for "FIELDimageR" in your Packages section. If you see the package, the installation was successful. Try the installation again if you do not see the package.
 
