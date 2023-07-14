@@ -21,7 +21,13 @@ library(rgdal)
 # Open the orthomosaic
 
 ```{r}
-EX1 <- stack("downsampled_orthos/7_6_2023_F120_Beans_P4_15m_RGB_transparent_mosaic_group1_downsample.tif")
+
+ortho_path = "downsampled_orthos/7_6_2023_F120_Beans_P4_15m_RGB_transparent_mosaic_group1_downsample.tif"
+start_index = ortho_path.rfind('/') + 1
+end_index = ortho_path.rfind('.')
+result = ortho_path[start_index:end_index]
+
+EX1 <- stack(ortho_path)
 # EX1<-aggregate(EX1, fact=4)
 plotRGB(EX1, r = 1, g = 2, b =3)
 ```
@@ -40,12 +46,10 @@ fieldshape <- readOGR(dsn = "shapefile/F120_beans_2023_rotated_qgis.shp", layer 
 EX1.Shape <- fieldshape
 ```
 
-# Calculate canopy cover and save to file
+# Calculate canopy cover
 
 ```{r}
 EX1.Canopy<-fieldArea(mosaic = EX1.RemSoil$mask, fieldShape = EX1.Shape, n.core = 8)
-
-write.csv(EX1.Canopy$areaPorcent, file = "EX1_Canopy_areaPorcent.csv", row.names = FALSE)
 ```
 
 # Calculate vegetation indices
@@ -65,3 +69,30 @@ EX1.Info<- fieldInfo(mosaic = EX1.Indices,fieldShape = EX1.Shape, n.core = 8)
 ```{r}
 fieldPlot(fieldShape=EX1.Info$fieldShape,fieldAttribute="VARI", mosaic=EX1, color=c("red","blue"), alpha = 0.5)
 ```
+
+# Combine inidices and canopy cover
+
+```{r}
+indices_data <- EX1.Info$plotValue
+canopy_cover_data <- EX1.Canopy$areaPorcent
+
+# Get the row names of the dataframes
+indices_data$index <- row.names(indices_data)
+canopy_cover_data$index <- row.names(canopy_cover_data)
+
+# Merge the dataframes using the index column
+merged_data <- merge(indices_data, canopy_cover_data, by = "index")
+
+# Remove the index column from the merged dataframe
+merged_data$index <- NULL
+
+# Using the subset function
+merged_data <- subset(merged_data, select = -5)
+```
+
+# Save output to file
+
+```{r}
+write.csv(EX1.Canopy$areaPorcent, file = "EX1_Canopy_areaPorcent.csv", row.names = FALSE)
+```
+
