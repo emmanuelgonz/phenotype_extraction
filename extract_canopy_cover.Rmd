@@ -10,69 +10,58 @@ fig_width: 6
 fig_height: 4 
 ---
 
-# Opening the image
+# Load libraries
 
 ```{r}
 library(FIELDimageR)
 library(raster)
 library(rgdal)
-
-# rasterOptions(maxmemory = 15000)
 ```
+
+# Open the orthomosaic
 
 ```{r}
-EX1 <- stack("6_26_2023_F120_Beans_P4_15m_RGB_transparent_mosaic_group1.tif")
-EX1<-aggregate(EX1, fact=4)
+EX1 <- stack("downsampled_orthos/7_6_2023_F120_Beans_P4_15m_RGB_transparent_mosaic_group1_downsample.tif")
+# EX1<-aggregate(EX1, fact=4)
 plotRGB(EX1, r = 1, g = 2, b =3)
 ```
+
+# Remove soil pixels
 
 ```{r}
 EX1.RemSoil <- fieldMask(mosaic = EX1, Red = 1, Green = 2, Blue = 3, index = "HUE")
 ```
 
+# Open shapefile and add to the orthomosaic
+
 ```{r}
 fieldshape <- readOGR(dsn = "shapefile/F120_beans_2023_rotated_qgis.shp", layer = "F120_beans_2023_rotated_qgis")
+
 EX1.Shape <- fieldshape
 ```
 
+# Calculate canopy cover and save to file
+
 ```{r}
 EX1.Canopy<-fieldArea(mosaic = EX1.RemSoil$mask, fieldShape = EX1.Shape, n.core = 8)
+
+write.csv(EX1.Canopy$areaPorcent, file = "EX1_Canopy_areaPorcent.csv", row.names = FALSE)
 ```
 
-```{r}
-EX1.Canopy$areaPorcent
-```
-
+# Calculate vegetation indices
 
 ```{r}
-# Set the output file name
-output_file <- "EX1_Canopy_areaPorcent.csv"
-
-# Save the data frame to a CSV file
-write.csv(EX1.Canopy$areaPorcent, file = output_file, row.names = FALSE)
-```
-
-```{r}
-# Calculating indices
 EX1.Indices<- fieldIndex(mosaic = EX1.RemSoil$newMosaic, Red = 1, Green = 2, Blue = 3, 
-                          index = c("NGRDI","BGI"), 
-                          myIndex = c("(Red-Blue)/Green"))
+                          index = c("NGRDI","BGI", "GLI", "BI", "SI", "VARI"))
                           
 ```
 
-```{r}
-# Extract the necessary information from the orthomosaic to be used in the figures
-EX1.Info<- fieldInfo(mosaic = EX1.Indices,fieldShape = EX1.Shape, n.core = 3)
-```
-
-```{r}
-# Calculate and plot the BGI index
-EX1.Indices.BGI<- fieldIndex(mosaic = EX1.RemSoil, index = c("BGI"))
-EX1.BGI<- fieldMask(mosaic = EX1.RemSoil, Red = 1, Green = 2, Blue = 3, 
-                   index = "BGI", cropValue = 0.7, cropAbove = T) 
-```
-
-```{r}
 # Visualize the indices
-fieldPlot(fieldShape=EX1.Info$fieldShape,fieldAttribute="myIndex", mosaic=EX1.Indices, color=c("red","blue"), alpha = 0.5)
+
+```{r}
+EX1.Info<- fieldInfo(mosaic = EX1.Indices,fieldShape = EX1.Shape, n.core = 8)
+```
+
+```{r}
+fieldPlot(fieldShape=EX1.Info$fieldShape,fieldAttribute="VARI", mosaic=EX1, color=c("red","blue"), alpha = 0.5)
 ```
