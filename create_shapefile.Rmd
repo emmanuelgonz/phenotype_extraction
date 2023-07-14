@@ -1,0 +1,69 @@
+---
+title: "R Notebook"
+# output: html_notebook
+editor_options: 
+  chunk_output_type: console
+output: 
+  html_notebook: 
+    fig_caption: yes
+fig_width: 6 
+fig_height: 4 
+---
+
+# Opening the image
+
+```{r}
+library(FIELDimageR)
+library(raster)
+library(rgdal)
+library(sp)
+library(rgeos)
+```
+
+```{r}
+# Open the orthomosaic
+EX1 <- stack("6_26_2023_F120_Beans_P4_15m_RGB_transparent_mosaic_group1.tif")
+
+# Reduce resolution
+EX1<-aggregate(EX1, fact=4)
+
+# Plot the image
+plotRGB(EX1, r = 1, g = 2, b =3)
+```
+
+```{r}
+# Rotate the orthomosaic using previously-calculated theta - interactive
+EX1.Rotated <- fieldRotate(mosaic = EX1, extentGIS=TRUE, theta = -88.955)
+```
+
+```{r, fig.align = "left"}
+# Crop the image - interactive
+EX1.Crop <- fieldCrop(mosaic = EX1.Rotated) #, fast.plot=T)
+```
+
+```{r}
+# Remove the soil pixels, keep plant pixels
+EX1.RemSoil <- fieldMask(mosaic = EX1.Crop, Red = 1, Green = 2, Blue = 3, index = "HUE")
+```
+
+```{r}
+# Create a shapefile - interactive
+EX1.Shape<-fieldShape(mosaic = EX1.RemSoil,ncols = 26, nrows = 19)
+```
+
+```{r}
+# Calculate the centroids of all the polygons
+centroids <- gCentroid(EX1.Shape$fieldShape, byid = TRUE)
+
+# Calculate the mean coordinates of the centroids
+centroid <- c(mean(coordinates(centroids)[, 1]), mean(coordinates(centroids)[, 2]))
+
+# Rotate the SpatialPolygonsDataFrame object around its centroid
+EX1.Shape.rotated <- elide(EX1.Shape$fieldShape, rotate = angle, center = centroid)
+
+# Set the output file name
+output_file <- "F120_beans_2023_rotated.shp"
+
+# Save the shapefile to a file
+writeOGR(EX1.Shape.rotated, dsn = output_file, layer = "F120_beans_2023_rotated", driver = "ESRI Shapefile")
+```
