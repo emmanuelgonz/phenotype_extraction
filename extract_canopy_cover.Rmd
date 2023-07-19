@@ -43,7 +43,7 @@ for (ortho_path in files) {
   EX1.RemSoil <- fieldMask(mosaic = EX1, Red = 1, Green = 2, Blue = 3, index = "HUE")
 
   # Open shapefile and add to the orthomosaic
-  fieldshape <- readOGR(dsn = "shapefile/F120_beans_2023_rotated_qgis.shp", layer = "F120_beans_2023_rotated_qgis")
+  fieldshape <- readOGR(dsn = "shapefile/F120_beans_2023_rotated_qgis_updated.shp", layer = "F120_beans_2023_rotated_qgis_updated")
   EX1.Shape <- fieldshape
 
   # Calculate canopy cover
