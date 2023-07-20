@@ -80,5 +80,8 @@ for (ortho_path in files) {
 
   # Save output to file
   write.csv(merged_data, file = result, row.names = FALSE)
+  
+  rm(result, EX1, indices_data, canopy_cover_data, merged_data)
+  
 }
 ```
