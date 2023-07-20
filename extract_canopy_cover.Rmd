@@ -47,7 +47,7 @@ for (ortho_path in files) {
   EX1.Shape <- fieldshape
 
   # Calculate canopy cover
-  EX1.Canopy<-fieldArea(mosaic = EX1.RemSoil$mask, fieldShape = EX1.Shape, n.core = 6)
+  EX1.Canopy<-fieldArea(mosaic = EX1.RemSoil$mask, fieldShape = EX1.Shape, n.core = 5)
 
   # Calculate vegetation indices
   EX1.Indices<- fieldIndex(mosaic = EX1.RemSoil$newMosaic, Red = 1, Green = 2, Blue = 3,
@@ -55,7 +55,7 @@ for (ortho_path in files) {
                           plot = FALSE)
 
   # Visualize the indices
-  EX1.Info<- fieldInfo(mosaic = EX1.Indices,fieldShape = EX1.Shape, n.core = 6)
+  EX1.Info<- fieldInfo(mosaic = EX1.Indices,fieldShape = EX1.Shape, n.core = 5)
   fieldPlot(fieldShape=EX1.Info$fieldShape,fieldAttribute="VARI", mosaic=EX1, color=c("red","blue"), alpha = 0.5)
 
   # Combine inidices and canopy cover
