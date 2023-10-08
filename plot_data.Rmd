@@ -15,8 +15,20 @@ df <- read.csv("F120_beans_2023_fieldbook.csv")
 # Drop NA values from the data frame 'df'
 df <- df %>% filter(!is.na(date), !is.na(objArea), !is.na(genotype), !is.na(treatment))
 
+# Remove rows with genotype column value of "G40110"
+df <- df %>% filter(genotype != "G40110")
+
+# Convert date to Date type and sort
+df$date <- as.Date(df$date)
+df <- df[order(df$date),]
+
 # Define the y variables to iterate through
 y_vars <- c("Red", "Green", "Blue", "NGRDI", "BGI", "GLI", "BI", "SI", "VARI", "objArea")
+
+# Create directory if it doesn't exist
+if (!dir.exists("figures")) {
+  dir.create("figures")
+}
 
 # Iterate through the y variables and create a separate plot for each one
 for (y_var in y_vars) {
@@ -25,9 +37,11 @@ for (y_var in y_vars) {
     geom_smooth(se=FALSE, formula=y~x, fill=NA) +
     labs(x = "Date", y = y_var) +
     theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) + #, panel.background = element_rect(fill = "transparent")) +
-    facet_wrap(~ treatment) #, ncol = 2)
+    facet_wrap(~ treatment) + #, ncol = 2)
+    scale_x_date(date_labels="%Y-%m-%d") # Add this line to format the date axis labels
   
-  # Save the plot to a file
-  ggsave(paste0(y_var, "_lowess_plot.png"), plot = p)
+  # Save the plot to a file in the 'figures' directory
+  ggsave(paste0("figures/", y_var, "_lowess_plot.png"), plot = p)
 }
+
 ```
